@@ -1,0 +1,18 @@
+name: jd
+
+on:
+  schedule:
+    - cron: "0 15 * * *"  # scheduled at 06:00 (UTC+8) everyday
+  workflow_dispatch:
+
+jobs:
+  JD:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-node@v2
+    - run: npm install request -g
+    - run: curl "https://raw.githubusercontent.com/NobyDa/Script/master/JD-DailyBonus/JD_DailyBonus.js" -O
+    - run: sed -iE "s/ Key = ''/Key = '$XDG_SESSION_TYPE'/" JD_DailyBonus.js
+    - run: node JD_DailyBonus.js
+    env:
+      JD_COOKIE: ${{ secrets.JD_COOKIE }}
