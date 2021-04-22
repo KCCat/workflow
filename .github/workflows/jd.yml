@@ -15,7 +15,7 @@ jobs:
     - run: sed -iE "s| Key = ''| Key = '$JD_COOKIE'|" JD_DailyBonus.js
     - run: node JD_DailyBonus.js | tee output.txt
     - id: jd_outout
-      run: echo "::set-output name=JD_DailyBonus_output::`grep '【' output.txt|sed -E 's|\n|, |g'`"
+      run: echo "::set-output name=JD_DailyBonus_output::`grep '【' output.txt`"
       
     - name: send message
       uses: appleboy/telegram-action@master
