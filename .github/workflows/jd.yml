@@ -13,10 +13,10 @@ jobs:
     - run: npm install request
     - run: curl "https://raw.githubusercontent.com/NobyDa/Script/master/JD-DailyBonus/JD_DailyBonus.js" -O
     - run: sed -iE "s| Key = ''| Key = '$JD_COOKIE'|" JD_DailyBonus.js
-    #- run: node JD_DailyBonus.js | tee output.txt
-    - run: echo '123\n123' | tee output.txt
+    - run: node JD_DailyBonus.js | tee output.txt
+    - run: cat output.txt
     - id: jd_outout
-      run: echo "::set-output name=JD_DailyBonus_output::`grep '123' output.txt`"
+      run: echo "::set-output name=JD_DailyBonus_output::`grep '【' output.txt`"
       
     - name: send message
       uses: appleboy/telegram-action@master
