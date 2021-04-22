@@ -13,10 +13,11 @@ jobs:
     - run: npm install request
     - run: curl "https://raw.githubusercontent.com/NobyDa/Script/master/JD-DailyBonus/JD_DailyBonus.js" -O
     - run: sed -iE "s| Key = ''| Key = '$JD_COOKIE'|" JD_DailyBonus.js
+    - run: node JD_DailyBonus.js | tee output.txt
     - id: output
-      run: node JD_DailyBonus.js
+      run: echo "::set-output name=JD_DailyBonus_output::`cat output.txt`"
       
-    - name: send custom message
+    - name: send message
       uses: appleboy/telegram-action@master
       with:
         to: ${{ secrets.TELEGRAM_TO }}
