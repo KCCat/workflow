@@ -1,0 +1,27 @@
+name: "main"
+
+on:
+  schedule:
+    - cron: "*/20 0 * * *" 
+  workflow_dispatch:
+
+jobs:
+  JD:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v2
+      - run: npm install request
+      - run: curl "https://raw.githubusercontent.com/NobyDa/Script/master/JD-DailyBonus/JD_DailyBonus.js" -O
+      - run: sed -iE "s| Key = ''| Key = '$JD_COOKIE'|" JD_DailyBonus.js
+      - run: node JD_DailyBonus.js | tee output.txt
+      - id: jd_outout
+        run: echo "::set-output name=JD_DailyBonus_output::`grep '【' output.txt`"
+      
+      - name: send message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: ${{ steps.jd_outout.outputs.JD_DailyBonus_output }}
+    env:
+      JD_COOKIE: ${{ secrets.JD_COOKIE }}
