@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo -n 'startTime='`date --rfc-3339=date`'%2013%3A00%3A00&endTime='`date --rfc-3339=date`'%2014%3A00%3A00&hours=19&length=1145.14&jsonPath=%2Fuploads%2FtraceData%2F15858515522%2F20210401%2F20210401113033.json&startAddressName=%E6%B5%99%E6%B1%9F%E7%9C%81%E6%B8%A9%E5%B7%9E%E5%B8%82%E9%B9%BF%E5%9F%8E%E5%8C%BA%E6%96%B0%E6%98%8C%E8%B7%AF&endAddressName=%E6%B5%99%E6%B1%9F%E7%9C%81%E6%B8%A9%E5%B7%9E%E5%B8%82%E9%B9%BF%E5%9F%8E%E5%8C%BA%E4%BA%94%E9%A9%AC%E8%A1%9739%E5%8F%B7' | tee data.txt
-      - run: curl 'https://wzhz.wenzhou.gov.cn/userPatrolApp/addPatrolByGreen?token='$GP_TOKEN --data-raw data.txt -o output1.txt
+      - run: curl 'https://wzhz.wenzhou.gov.cn/userPatrolApp/addPatrolByGreen?token='$GP_TOKEN --data-raw `cat data.txt` -o output1.txt
       - run: curl 'https://wzhz.wenzhou.gov.cn/pointApp/getUserPointInfo?token='$GP_TOKEN -o output2.txt
       - id: gp_outout
         run: echo "::set-output name=gp_output::`cat output1.txt output2.txt`"
