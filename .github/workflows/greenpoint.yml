@@ -9,7 +9,7 @@ jobs:
   greenpoint:
     runs-on: ubuntu-latest
     steps:
-      - run: curl 'https://wzhz.wenzhou.gov.cn/pointApp/getUserPointInfo?token='$GP_TOKEN | tee output.txt
+      - run: curl 'https://wzhz.wenzhou.gov.cn/pointApp/getUserPointInfo?token='$GP_TOKEN -O | tee output.txt
       - id: gp_outout
         run: echo "::set-output name=gp_output::`cat output.txt`"
       
