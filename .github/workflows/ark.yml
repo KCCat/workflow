@@ -9,7 +9,6 @@ jobs:
   ark:
     runs-on: ubuntu-latest
     steps:
-      - run: echo -n ""
       - run: curl 'https://ak.hypergryph.com/activity/preparation/activity/share' -H 'Content-Type:'' application/json;charset=utf-8' -H "$YJ_COOKIE" --data-raw '{"method":1}' -o output0.txt
       - run: curl 'https://ak.hypergryph.com/activity/preparation/activity/roll' -H "$YJ_COOKIE" --data-raw '{}' -o output1.txt
       - run: curl 'https://ak.hypergryph.com/activity/preparation/activity/userInfo' -H "$YJ_COOKIE" -o output2.txt
